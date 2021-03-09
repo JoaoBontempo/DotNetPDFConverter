@@ -116,6 +116,7 @@ namespace GoodTimePDFConverter.Forms
             this.btnConverter.TabIndex = 5;
             this.btnConverter.Text = "Converter arquivos";
             this.btnConverter.UseVisualStyleBackColor = false;
+            this.btnConverter.Click += new System.EventHandler(this.btnConverter_Click);
             // 
             // label4
             // 

@@ -88,7 +88,7 @@ namespace GoodTimePDFConverter.Forms
         #endregion
 
         private System.Windows.Forms.Button btnRemoverArquivo;
-        private System.Windows.Forms.PictureBox pbxFileIcon;
         private System.Windows.Forms.Label lbFileName;
+        public System.Windows.Forms.PictureBox pbxFileIcon;
     }
 }

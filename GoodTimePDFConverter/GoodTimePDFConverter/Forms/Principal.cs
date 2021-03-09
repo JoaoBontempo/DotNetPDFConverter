@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GoodTimePDFConverter.Classes;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +15,8 @@ namespace GoodTimePDFConverter.Forms
 {
     public partial class Principal : Form
     {
+        ArrayList errorFiles;
+        int converted = 0;
         public Principal()
         {
             InitializeComponent();
@@ -46,5 +50,36 @@ namespace GoodTimePDFConverter.Forms
             }
         }
 
+        private bool VerificarCampos()
+        {
+            if (String.IsNullOrEmpty(txtOutputPath.Text))
+            {
+                MessageBox.Show("Nenhum caminho de saída foi selecionado\n" +
+                    "\n*O caminho de saída é o local em que seus arquivos convertidos em pdf serão salvos", "Selecione um caminho de saída", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btnSelecionarOutput_Click(null, null);
+                return false;
+            }
+            if (flpFiles.Controls.Count == 0)
+            {
+                MessageBox.Show("Nenhum arquivo foi selecionado para conversão", "Selecione ao menos um arquivo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btnNovoArquivo_Click(null,null);
+                return false;
+            }
+            return true;
+        }
+
+        private void btnConverter_Click(object sender, EventArgs e)
+        {
+            if (VerificarCampos())
+            {
+                errorFiles = new ArrayList();
+                foreach (FileInterface file in flpFiles.Controls)
+                {
+                    if (Conversor.FileToPDF(file, txtOutputPath.Text, this))
+                        converted++;
+                }
+                MessageBox.Show("Arquivos convertidos com sucesso!");
+            }
+        }
     }
 }
