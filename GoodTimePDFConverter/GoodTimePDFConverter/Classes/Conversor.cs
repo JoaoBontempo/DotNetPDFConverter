@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GoodTimePDFConverter.Forms;
 using GoodTimePDFConverter.Properties;
-using Spire.Xls;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Interop.Excel;
 
@@ -16,7 +15,7 @@ namespace GoodTimePDFConverter.Classes
     {
         private static Microsoft.Office.Interop.Word.Document wordDocument { get; set; }
 
-        public static bool FileToPDF(FileInterface file, string outputPath, Principal context)
+        public static bool FileToPDF(FileInterface file, string outputPath)
         {
             try
             {
