@@ -42,10 +42,13 @@ namespace GoodTimePDFConverter.Forms
             this.btnSelecionarOutput = new System.Windows.Forms.Button();
             this.ofdSelectFile = new System.Windows.Forms.OpenFileDialog();
             this.fbdOutputPath = new System.Windows.Forms.FolderBrowserDialog();
-            this.pbarConvertProgress = new System.Windows.Forms.ProgressBar();
-            this.lbConvertProgress = new System.Windows.Forms.Label();
+            this.lbLoading = new System.Windows.Forms.Label();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
+            this.bwConversor = new System.ComponentModel.BackgroundWorker();
+            this.barraProgresso1 = new GoodTimePDFConverter.BarraProgresso();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -53,6 +56,7 @@ namespace GoodTimePDFConverter.Forms
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.panel1.Controls.Add(this.barraProgresso1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
@@ -181,29 +185,54 @@ namespace GoodTimePDFConverter.Forms
             // 
             this.ofdSelectFile.Multiselect = true;
             // 
-            // pbarConvertProgress
+            // lbLoading
             // 
-            this.pbarConvertProgress.Location = new System.Drawing.Point(12, 427);
-            this.pbarConvertProgress.Name = "pbarConvertProgress";
-            this.pbarConvertProgress.Size = new System.Drawing.Size(354, 23);
-            this.pbarConvertProgress.TabIndex = 12;
+            this.lbLoading.AutoSize = true;
+            this.lbLoading.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLoading.Location = new System.Drawing.Point(72, 407);
+            this.lbLoading.Name = "lbLoading";
+            this.lbLoading.Size = new System.Drawing.Size(276, 16);
+            this.lbLoading.TabIndex = 13;
+            this.lbLoading.Text = "Convertendo arquivos, por favor, aguarde.";
+            this.lbLoading.Visible = false;
             // 
-            // lbConvertProgress
+            // pbxLoading
             // 
-            this.lbConvertProgress.AutoSize = true;
-            this.lbConvertProgress.Location = new System.Drawing.Point(12, 410);
-            this.lbConvertProgress.Name = "lbConvertProgress";
-            this.lbConvertProgress.Size = new System.Drawing.Size(114, 13);
-            this.lbConvertProgress.TabIndex = 13;
-            this.lbConvertProgress.Text = "DotNet PDF Converter";
+            this.pbxLoading.Image = global::GoodTimePDFConverter.Properties.Resources.loading;
+            this.pbxLoading.Location = new System.Drawing.Point(12, 405);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(45, 45);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbxLoading.TabIndex = 12;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
+            // 
+            // bwConversor
+            // 
+            this.bwConversor.WorkerReportsProgress = true;
+            this.bwConversor.WorkerSupportsCancellation = true;
+            this.bwConversor.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwConversor_DoWork);
+            this.bwConversor.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwConversor_ProgressChanged);
+            this.bwConversor.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwConversor_RunWorkerCompleted);
+            // 
+            // barraProgresso1
+            // 
+            this.barraProgresso1.CorFundo = System.Drawing.Color.Empty;
+            this.barraProgresso1.CorProgresso = System.Drawing.Color.Empty;
+            this.barraProgresso1.Location = new System.Drawing.Point(221, 14);
+            this.barraProgresso1.Maximo = 0;
+            this.barraProgresso1.Name = "barraProgresso1";
+            this.barraProgresso1.Size = new System.Drawing.Size(80, 19);
+            this.barraProgresso1.TabIndex = 1;
+            this.barraProgresso1.Valor = 0;
             // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(378, 473);
-            this.Controls.Add(this.lbConvertProgress);
-            this.Controls.Add(this.pbarConvertProgress);
+            this.Controls.Add(this.lbLoading);
+            this.Controls.Add(this.pbxLoading);
             this.Controls.Add(this.btnSelecionarOutput);
             this.Controls.Add(this.txtOutputPath);
             this.Controls.Add(this.label2);
@@ -222,6 +251,7 @@ namespace GoodTimePDFConverter.Forms
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,7 +272,9 @@ namespace GoodTimePDFConverter.Forms
         private System.Windows.Forms.OpenFileDialog ofdSelectFile;
         private System.Windows.Forms.FolderBrowserDialog fbdOutputPath;
         public System.Windows.Forms.FlowLayoutPanel flpFiles;
-        private System.Windows.Forms.ProgressBar pbarConvertProgress;
-        private System.Windows.Forms.Label lbConvertProgress;
+        private System.Windows.Forms.PictureBox pbxLoading;
+        private System.Windows.Forms.Label lbLoading;
+        private System.ComponentModel.BackgroundWorker bwConversor;
+        private BarraProgresso barraProgresso1;
     }
 }

@@ -77,6 +77,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarraProgresso.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BarraProgresso.Designer.cs">
+      <DependentUpon>BarraProgresso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Conversor.cs" />
     <Compile Include="Forms\FileInterface.cs">
       <SubType>UserControl</SubType>
@@ -92,6 +98,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BarraProgresso.resx">
+      <DependentUpon>BarraProgresso.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileInterface.resx">
       <DependentUpon>FileInterface.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,12 +131,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Spinner-1s-191px.gif" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\word %281%29.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\excel %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Spinner-1s-191px %281%29.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿using GoodTimePDFConverter.Classes;
+using GoodTimePDFConverter.Forms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,20 +17,11 @@ namespace GoodTimePDFConverter.Forms
 {
     public partial class Principal : Form
     {
-        private static ArrayList errorFiles = new ArrayList();
-        private static int converted = 0;
-        private static FlowLayoutPanel panelFiles;
-        private static ProgressBar barraProgresso;
-        private static Label labelProgresso;
-        private static string path;
-        Thread ConverterArquivos = new Thread(ConverterArquivosPDF);
-
+        private ArrayList errorFiles = new ArrayList();
+        private int converted = 0, lastConverted = 0;
         public Principal()
         {
             InitializeComponent();
-            panelFiles = flpFiles;
-            labelProgresso = lbConvertProgress;
-            barraProgresso = pbarConvertProgress;
         }
 
         private void btnNovoArquivo_Click(object sender, EventArgs e)
@@ -60,31 +52,6 @@ namespace GoodTimePDFConverter.Forms
             }
         }
 
-        private static void ConverterArquivosPDF()
-        {
-            barraProgresso.Value = 0;
-            barraProgresso.Maximum = panelFiles.Controls.Count;
-            errorFiles.Clear();
-            foreach (FileInterface file in panelFiles.Controls)
-            {
-                labelProgresso.Text = String.Format("Convertendo o arquivo {0}...", file.file.Name);
-                if (Conversor.FileToPDF(file, path))
-                {
-                    barraProgresso.Value++;
-                    converted++;
-                }
-                else
-                {
-                    labelProgresso.Text = String.Format("Ocorreu um erro ao converter o arquivo {0}...", file.file.Name);
-                    errorFiles.Add(file);
-                }
-            }
-            barraProgresso.Value = 0;
-            labelProgresso.Text = String.Format("{0}  ");
-            if (converted == panelFiles.Controls.Count)
-                MessageBox.Show(String.Format("{0} arquivo(s) foram convertidos para PDF com sucesso e não houve nenhuma falha!"));
-        }
-
         private bool VerificarCampos()
         {
             if (String.IsNullOrEmpty(txtOutputPath.Text))
@@ -103,13 +70,44 @@ namespace GoodTimePDFConverter.Forms
             return true;
         }
 
+        private void LoadingVisible(bool visible)
+        {
+            lbLoading.Visible = visible;
+            pbxLoading.Visible = visible;
+        }
+
         private void btnConverter_Click(object sender, EventArgs e)
         {
+            converted = 0;
+            lastConverted = 0;
+            //pbarProgresso.Maximum = flpFiles.Controls.Count;
             if (VerificarCampos())
             {
-                ConverterArquivos.Start();
-                MessageBox.Show("Arquivos convertidos com sucesso!");
+                LoadingVisible(true);
+                bwConversor.RunWorkerAsync();
             }
+        }
+
+        private void bwConversor_DoWork(object sender, DoWorkEventArgs e)
+        {
+            converted = 0;
+            foreach (FileInterface file in flpFiles.Controls)
+            {
+                Conversor.FileToPDF(file, txtOutputPath.Text);
+                converted++;
+                bwConversor.ReportProgress(converted);
+            }
+        }
+
+        private void bwConversor_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //pbarProgresso.Value = e.ProgressPercentage;
+        }
+
+        private void bwConversor_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            LoadingVisible(false);
+            MessageBox.Show("Arquivos convertidos com sucesso!");
         }
     }
 }
