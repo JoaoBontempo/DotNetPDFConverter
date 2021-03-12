@@ -36,6 +36,7 @@ namespace GoodTimePDFConverter
             // 
             // pnlFundo
             // 
+            this.pnlFundo.BackColor = System.Drawing.Color.White;
             this.pnlFundo.Controls.Add(this.pnlProgresso);
             this.pnlFundo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFundo.Location = new System.Drawing.Point(0, 0);
@@ -45,10 +46,10 @@ namespace GoodTimePDFConverter
             // 
             // pnlProgresso
             // 
-            this.pnlProgresso.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pnlProgresso.BackColor = System.Drawing.Color.Blue;
             this.pnlProgresso.Location = new System.Drawing.Point(-1, 0);
             this.pnlProgresso.Name = "pnlProgresso";
-            this.pnlProgresso.Size = new System.Drawing.Size(150, 33);
+            this.pnlProgresso.Size = new System.Drawing.Size(268, 33);
             this.pnlProgresso.TabIndex = 0;
             // 
             // BarraProgresso

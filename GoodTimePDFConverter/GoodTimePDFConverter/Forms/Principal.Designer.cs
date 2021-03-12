@@ -45,7 +45,8 @@ namespace GoodTimePDFConverter.Forms
             this.lbLoading = new System.Windows.Forms.Label();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.bwConversor = new System.ComponentModel.BackgroundWorker();
-            this.barraProgresso1 = new GoodTimePDFConverter.BarraProgresso();
+            this.barraProgresso2 = new GoodTimePDFConverter.BarraProgresso();
+            this.pbarProgresso = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
@@ -56,7 +57,6 @@ namespace GoodTimePDFConverter.Forms
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.panel1.Controls.Add(this.barraProgresso1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
@@ -189,7 +189,7 @@ namespace GoodTimePDFConverter.Forms
             // 
             this.lbLoading.AutoSize = true;
             this.lbLoading.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLoading.Location = new System.Drawing.Point(72, 407);
+            this.lbLoading.Location = new System.Drawing.Point(23, 45);
             this.lbLoading.Name = "lbLoading";
             this.lbLoading.Size = new System.Drawing.Size(276, 16);
             this.lbLoading.TabIndex = 13;
@@ -215,22 +215,32 @@ namespace GoodTimePDFConverter.Forms
             this.bwConversor.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwConversor_ProgressChanged);
             this.bwConversor.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwConversor_RunWorkerCompleted);
             // 
-            // barraProgresso1
+            // barraProgresso2
             // 
-            this.barraProgresso1.CorFundo = System.Drawing.Color.Empty;
-            this.barraProgresso1.CorProgresso = System.Drawing.Color.Empty;
-            this.barraProgresso1.Location = new System.Drawing.Point(221, 14);
-            this.barraProgresso1.Maximo = 0;
-            this.barraProgresso1.Name = "barraProgresso1";
-            this.barraProgresso1.Size = new System.Drawing.Size(80, 19);
-            this.barraProgresso1.TabIndex = 1;
-            this.barraProgresso1.Valor = 0;
+            this.barraProgresso2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.barraProgresso2.CorFundo = System.Drawing.Color.White;
+            this.barraProgresso2.CorProgresso = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.barraProgresso2.Location = new System.Drawing.Point(63, 405);
+            this.barraProgresso2.Maximo = 100;
+            this.barraProgresso2.Name = "barraProgresso2";
+            this.barraProgresso2.Size = new System.Drawing.Size(303, 17);
+            this.barraProgresso2.TabIndex = 14;
+            this.barraProgresso2.Valor = 0;
+            // 
+            // pbarProgresso
+            // 
+            this.pbarProgresso.Location = new System.Drawing.Point(64, 428);
+            this.pbarProgresso.Name = "pbarProgresso";
+            this.pbarProgresso.Size = new System.Drawing.Size(302, 22);
+            this.pbarProgresso.TabIndex = 15;
             // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(378, 473);
+            this.Controls.Add(this.pbarProgresso);
+            this.Controls.Add(this.barraProgresso2);
             this.Controls.Add(this.lbLoading);
             this.Controls.Add(this.pbxLoading);
             this.Controls.Add(this.btnSelecionarOutput);
@@ -276,5 +286,7 @@ namespace GoodTimePDFConverter.Forms
         private System.Windows.Forms.Label lbLoading;
         private System.ComponentModel.BackgroundWorker bwConversor;
         private BarraProgresso barraProgresso1;
+        private BarraProgresso barraProgresso2;
+        private System.Windows.Forms.ProgressBar pbarProgresso;
     }
 }

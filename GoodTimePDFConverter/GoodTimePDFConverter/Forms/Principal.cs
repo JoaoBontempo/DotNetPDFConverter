@@ -80,7 +80,8 @@ namespace GoodTimePDFConverter.Forms
         {
             converted = 0;
             lastConverted = 0;
-            //pbarProgresso.Maximum = flpFiles.Controls.Count;
+            pbarProgresso.Maximum = flpFiles.Controls.Count;
+            barraProgresso2.Maximo = flpFiles.Controls.Count;
             if (VerificarCampos())
             {
                 LoadingVisible(true);
@@ -101,7 +102,8 @@ namespace GoodTimePDFConverter.Forms
 
         private void bwConversor_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //pbarProgresso.Value = e.ProgressPercentage;
+            pbarProgresso.Value = e.ProgressPercentage;
+            barraProgresso2.Valor = e.ProgressPercentage;
         }
 
         private void bwConversor_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
