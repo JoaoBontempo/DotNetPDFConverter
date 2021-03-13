@@ -29,6 +29,7 @@ namespace GoodTimePDFConverter.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -45,8 +46,9 @@ namespace GoodTimePDFConverter.Forms
             this.lbLoading = new System.Windows.Forms.Label();
             this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.bwConversor = new System.ComponentModel.BackgroundWorker();
-            this.barraProgresso2 = new GoodTimePDFConverter.BarraProgresso();
-            this.pbarProgresso = new System.Windows.Forms.ProgressBar();
+            this.lbPorcentagem = new System.Windows.Forms.Label();
+            this.pbarProgresso = new GoodTimePDFConverter.BarraProgresso();
+            this.lbReset = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
@@ -102,6 +104,7 @@ namespace GoodTimePDFConverter.Forms
             this.flpFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpFiles.AutoScroll = true;
+            this.flpFiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flpFiles.Location = new System.Drawing.Point(13, 98);
             this.flpFiles.Name = "flpFiles";
             this.flpFiles.Size = new System.Drawing.Size(353, 220);
@@ -184,16 +187,17 @@ namespace GoodTimePDFConverter.Forms
             // ofdSelectFile
             // 
             this.ofdSelectFile.Multiselect = true;
+            this.ofdSelectFile.Title = "Selecione um ou mais arquivos para converter";
             // 
             // lbLoading
             // 
             this.lbLoading.AutoSize = true;
             this.lbLoading.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLoading.Location = new System.Drawing.Point(23, 45);
+            this.lbLoading.Location = new System.Drawing.Point(63, 405);
             this.lbLoading.Name = "lbLoading";
-            this.lbLoading.Size = new System.Drawing.Size(276, 16);
+            this.lbLoading.Size = new System.Drawing.Size(280, 16);
             this.lbLoading.TabIndex = 13;
-            this.lbLoading.Text = "Convertendo arquivos, por favor, aguarde.";
+            this.lbLoading.Text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
             this.lbLoading.Visible = false;
             // 
             // pbxLoading
@@ -215,24 +219,43 @@ namespace GoodTimePDFConverter.Forms
             this.bwConversor.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwConversor_ProgressChanged);
             this.bwConversor.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwConversor_RunWorkerCompleted);
             // 
-            // barraProgresso2
+            // lbPorcentagem
             // 
-            this.barraProgresso2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.barraProgresso2.CorFundo = System.Drawing.Color.White;
-            this.barraProgresso2.CorProgresso = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.barraProgresso2.Location = new System.Drawing.Point(63, 405);
-            this.barraProgresso2.Maximo = 100;
-            this.barraProgresso2.Name = "barraProgresso2";
-            this.barraProgresso2.Size = new System.Drawing.Size(303, 17);
-            this.barraProgresso2.TabIndex = 14;
-            this.barraProgresso2.Valor = 0;
+            this.lbPorcentagem.AutoSize = true;
+            this.lbPorcentagem.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPorcentagem.Location = new System.Drawing.Point(338, 432);
+            this.lbPorcentagem.Name = "lbPorcentagem";
+            this.lbPorcentagem.Size = new System.Drawing.Size(25, 16);
+            this.lbPorcentagem.TabIndex = 15;
+            this.lbPorcentagem.Text = "0%";
+            this.lbPorcentagem.Visible = false;
             // 
             // pbarProgresso
             // 
-            this.pbarProgresso.Location = new System.Drawing.Point(64, 428);
+            this.pbarProgresso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbarProgresso.CorFundo = System.Drawing.Color.White;
+            this.pbarProgresso.CorProgresso = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbarProgresso.Location = new System.Drawing.Point(66, 431);
+            this.pbarProgresso.Maximo = 3;
             this.pbarProgresso.Name = "pbarProgresso";
-            this.pbarProgresso.Size = new System.Drawing.Size(302, 22);
-            this.pbarProgresso.TabIndex = 15;
+            this.pbarProgresso.Size = new System.Drawing.Size(267, 19);
+            this.pbarProgresso.TabIndex = 16;
+            this.pbarProgresso.Valor = 1;
+            this.pbarProgresso.Visible = false;
+            // 
+            // lbReset
+            // 
+            this.lbReset.AutoSize = true;
+            this.lbReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbReset.Font = new System.Drawing.Font("Arial", 8.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbReset.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lbReset.Location = new System.Drawing.Point(292, 317);
+            this.lbReset.Name = "lbReset";
+            this.lbReset.Size = new System.Drawing.Size(75, 13);
+            this.lbReset.TabIndex = 17;
+            this.lbReset.Text = "Limpar tudo";
+            this.lbReset.Click += new System.EventHandler(this.lbReset_Click);
             // 
             // Principal
             // 
@@ -240,7 +263,7 @@ namespace GoodTimePDFConverter.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(378, 473);
             this.Controls.Add(this.pbarProgresso);
-            this.Controls.Add(this.barraProgresso2);
+            this.Controls.Add(this.lbPorcentagem);
             this.Controls.Add(this.lbLoading);
             this.Controls.Add(this.pbxLoading);
             this.Controls.Add(this.btnSelecionarOutput);
@@ -252,7 +275,9 @@ namespace GoodTimePDFConverter.Forms
             this.Controls.Add(this.flpFiles);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.lbReset);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -286,7 +311,8 @@ namespace GoodTimePDFConverter.Forms
         private System.Windows.Forms.Label lbLoading;
         private System.ComponentModel.BackgroundWorker bwConversor;
         private BarraProgresso barraProgresso1;
-        private BarraProgresso barraProgresso2;
-        private System.Windows.Forms.ProgressBar pbarProgresso;
+        private System.Windows.Forms.Label lbPorcentagem;
+        private BarraProgresso pbarProgresso;
+        private System.Windows.Forms.Label lbReset;
     }
 }

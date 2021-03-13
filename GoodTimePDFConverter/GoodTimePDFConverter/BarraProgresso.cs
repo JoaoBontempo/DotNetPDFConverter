@@ -64,7 +64,17 @@ namespace GoodTimePDFConverter
                 SetMaximo(value);
             } 
         }
-        
+
+        [Category("Valores")]
+        [Description("Porcentagem")]
+        public float Porcentagem 
+        {
+            get
+            {
+                return (this.valor * 100) / this.maximo;
+            }
+        }
+
         [Category("Valores")]
         [Description("Valor de progresso")]
         [DefaultValue(10)]

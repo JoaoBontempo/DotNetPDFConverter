@@ -23,7 +23,6 @@ namespace GoodTimePDFConverter.Classes
                 {
                     string docOrigem = file.file.FullName;
                     string pdfSaida = outputPath + String.Format(@"\{0}.pdf", file.file.Name.Replace(file.file.Extension, ""));
-                    //Utiliza as próprias dll do wor para realizar a conversão
                     Microsoft.Office.Interop.Word.Application appWord = new Microsoft.Office.Interop.Word.Application();
                     wordDocument = appWord.Documents.Open(docOrigem);
                     wordDocument.ExportAsFixedFormat(pdfSaida, WdExportFormat.wdExportFormatPDF);
@@ -32,7 +31,6 @@ namespace GoodTimePDFConverter.Classes
                     object originalFormat = Microsoft.Office.Interop.Word.WdOriginalFormat.wdWordDocument;
                     object routeDocument = false;
 
-                    // Fecha a aplicação e o documento
                     appWord.Quit(ref saveOption, ref originalFormat, ref routeDocument);
                     wordDocument.Close();
                     return true;
@@ -59,7 +57,6 @@ namespace GoodTimePDFConverter.Classes
         paramMissing, paramMissing, paramMissing, paramMissing,
         paramMissing, paramMissing);
 
-                    // Save it in the target format.
                     if (excelWorkBook != null)
                         excelWorkBook.ExportAsFixedFormat(paramExportFormat,
                             paramExportFilePath, paramExportQuality,
@@ -73,7 +70,6 @@ namespace GoodTimePDFConverter.Classes
                         excelWorkBook = null;
                     }
 
-                    // Quit Excel and release the ApplicationClass object.
                     if (excelApplication != null)
                     {
                         excelApplication.Quit();
