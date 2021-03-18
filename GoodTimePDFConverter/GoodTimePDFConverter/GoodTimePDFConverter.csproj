@@ -83,7 +83,14 @@
     <Compile Include="BarraProgresso.Designer.cs">
       <DependentUpon>BarraProgresso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Arquivo.cs" />
     <Compile Include="Classes\Conversor.cs" />
+    <Compile Include="Forms\CaixaMensagemConversao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CaixaMensagemConversao.Designer.cs">
+      <DependentUpon>CaixaMensagemConversao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FileInterface.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -100,6 +107,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BarraProgresso.resx">
       <DependentUpon>BarraProgresso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CaixaMensagemConversao.resx">
+      <DependentUpon>CaixaMensagemConversao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FileInterface.resx">
       <DependentUpon>FileInterface.cs</DependentUpon>

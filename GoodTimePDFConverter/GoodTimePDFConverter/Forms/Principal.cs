@@ -17,10 +17,24 @@ namespace GoodTimePDFConverter.Forms
 {
     public partial class Principal : Form
     {
-        private int converted = 0;
+        private int converted = 0, cont = 0;
+        private bool cancel;
         public Principal()
         {
             InitializeComponent();
+        }
+
+        private bool ArquivoJaSelecionado(string path)
+        {
+            foreach (FileInterface file in flpFiles.Controls)
+            {
+                if (file.file.FullName.Equals(path))
+                {
+                    MessageBox.Show(String.Format("O arquivo {0} já está selecionado", file.file.Name));
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void btnNovoArquivo_Click(object sender, EventArgs e)
@@ -29,6 +43,8 @@ namespace GoodTimePDFConverter.Forms
             {
                 foreach(string path in ofdSelectFile.FileNames)
                 {
+                    if (ArquivoJaSelecionado(path))
+                        continue;
                     FileInfo file = new FileInfo(path);
                     if (!file.Extension.Contains("xls") && !file.Extension.Contains("doc"))
                     {
@@ -71,6 +87,11 @@ namespace GoodTimePDFConverter.Forms
 
         private void LoadingVisible(bool visible)
         {
+            if (visible)
+                this.Size = new Size(394, 512);
+            else
+                this.Size = new Size(394, 460);
+            
             lbLoading.Visible = visible;
             pbxLoading.Visible = visible;
             pbarProgresso.Visible = visible;
@@ -79,36 +100,60 @@ namespace GoodTimePDFConverter.Forms
 
         private void btnConverter_Click(object sender, EventArgs e)
         {
-            if (VerificarCampos())
+            if (btnConverter.Tag.Equals("Convert"))
             {
-                if (!bwConversor.IsBusy)
+                if (VerificarCampos())
                 {
-                    converted = 0;
-                    pbarProgresso.Valor = 0;
-                    pbarProgresso.Maximo = flpFiles.Controls.Count;
-                    LoadingVisible(true);
-                    bwConversor.RunWorkerAsync();
+                    if (!bwConversor.IsBusy)
+                    {
+                        cancel = false;
+                        converted = 0;
+                        pbarProgresso.Valor = 0;
+                        pbarProgresso.Maximo = flpFiles.Controls.Count;
+                        LoadingVisible(true);
+                        cont = 0;
+                        bwConversor.RunWorkerAsync();
+                        btnConverter.Tag = "Cancel";
+                        btnConverter.Text = "Cancelar conversão";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não é possível converter os arquivos pois existem arquivos na fila.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Não é possível converter os arquivos pois existem arquivos na fila.");
-                }
+            }
+            else
+            {
+                bwConversor.CancelAsync();
+                lbLoading.Text = "Cancelando conversão...";
+                btnConverter.Tag = "Convert";
+                btnConverter.Text = "Converter arquivos";
+                cancel = true;
             }
         }
 
         private void bwConversor_DoWork(object sender, DoWorkEventArgs e)
         {
+            Conversor.Arquivos.Clear();
             object[] infos = new object[2];
             converted = 0;
             foreach (FileInterface file in flpFiles.Controls)
             {
-                infos[0] = file.file.Name;
-                infos[1] = true;
-                bwConversor.ReportProgress(converted, infos);
-                Conversor.FileToPDF(file, txtOutputPath.Text);
-                infos[1] = false;
-                converted++;
-                bwConversor.ReportProgress(converted, infos);
+                if (!bwConversor.CancellationPending)
+                {
+                    infos[0] = file.file.Name;
+                    infos[1] = true;
+                    bwConversor.ReportProgress(converted, infos);
+                    if (Conversor.FileToPDF(file, txtOutputPath.Text))
+                        cont++;
+                    infos[1] = false;
+                    converted++;
+                    bwConversor.ReportProgress(converted, infos);
+                }
+                else
+                {
+                    return;
+                }
             }
         }
 
@@ -142,9 +187,21 @@ namespace GoodTimePDFConverter.Forms
 
         private void bwConversor_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            lbLoading.Text = "Arquivos convertidos com sucesso.";
-            MessageBox.Show("Arquivos convertidos com sucesso!");
+            if (cancel)
+            {
+                LoadingVisible(false);
+                MessageBox.Show("Conversão cancelada com sucesso!");
+                return;
+            }
             LoadingVisible(false);
+            if (cont != 0)
+            {
+                lbLoading.Text = "Arquivos convertidos com sucesso.";
+                btnConverter.Tag = "Convert";
+                btnConverter.Text = "Converter arquivos";
+                CaixaMensagemConversao cmc = new CaixaMensagemConversao(flpFiles.Controls.Count, cont);
+                cmc.ShowDialog();
+            }
         }
 
         private void lbReset_Click(object sender, EventArgs e)

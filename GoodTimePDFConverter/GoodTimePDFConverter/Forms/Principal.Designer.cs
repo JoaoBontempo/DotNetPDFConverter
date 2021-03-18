@@ -44,11 +44,11 @@ namespace GoodTimePDFConverter.Forms
             this.ofdSelectFile = new System.Windows.Forms.OpenFileDialog();
             this.fbdOutputPath = new System.Windows.Forms.FolderBrowserDialog();
             this.lbLoading = new System.Windows.Forms.Label();
-            this.pbxLoading = new System.Windows.Forms.PictureBox();
             this.bwConversor = new System.ComponentModel.BackgroundWorker();
             this.lbPorcentagem = new System.Windows.Forms.Label();
-            this.pbarProgresso = new GoodTimePDFConverter.BarraProgresso();
             this.lbReset = new System.Windows.Forms.Label();
+            this.pbxLoading = new System.Windows.Forms.PictureBox();
+            this.pbarProgresso = new GoodTimePDFConverter.BarraProgresso();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLoading)).BeginInit();
@@ -82,7 +82,7 @@ namespace GoodTimePDFConverter.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(-1, 456);
+            this.panel2.Location = new System.Drawing.Point(-1, 404);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(381, 25);
             this.panel2.TabIndex = 2;
@@ -121,6 +121,7 @@ namespace GoodTimePDFConverter.Forms
             this.btnConverter.Name = "btnConverter";
             this.btnConverter.Size = new System.Drawing.Size(354, 27);
             this.btnConverter.TabIndex = 5;
+            this.btnConverter.Tag = "Convert";
             this.btnConverter.Text = "Converter arquivos";
             this.btnConverter.UseVisualStyleBackColor = false;
             this.btnConverter.Click += new System.EventHandler(this.btnConverter_Click);
@@ -200,17 +201,6 @@ namespace GoodTimePDFConverter.Forms
             this.lbLoading.Text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
             this.lbLoading.Visible = false;
             // 
-            // pbxLoading
-            // 
-            this.pbxLoading.Image = global::GoodTimePDFConverter.Properties.Resources.loading;
-            this.pbxLoading.Location = new System.Drawing.Point(12, 405);
-            this.pbxLoading.Name = "pbxLoading";
-            this.pbxLoading.Size = new System.Drawing.Size(45, 45);
-            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbxLoading.TabIndex = 12;
-            this.pbxLoading.TabStop = false;
-            this.pbxLoading.Visible = false;
-            // 
             // bwConversor
             // 
             this.bwConversor.WorkerReportsProgress = true;
@@ -230,19 +220,6 @@ namespace GoodTimePDFConverter.Forms
             this.lbPorcentagem.Text = "0%";
             this.lbPorcentagem.Visible = false;
             // 
-            // pbarProgresso
-            // 
-            this.pbarProgresso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbarProgresso.CorFundo = System.Drawing.Color.White;
-            this.pbarProgresso.CorProgresso = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbarProgresso.Location = new System.Drawing.Point(66, 431);
-            this.pbarProgresso.Maximo = 3;
-            this.pbarProgresso.Name = "pbarProgresso";
-            this.pbarProgresso.Size = new System.Drawing.Size(267, 19);
-            this.pbarProgresso.TabIndex = 16;
-            this.pbarProgresso.Valor = 1;
-            this.pbarProgresso.Visible = false;
-            // 
             // lbReset
             // 
             this.lbReset.AutoSize = true;
@@ -257,11 +234,35 @@ namespace GoodTimePDFConverter.Forms
             this.lbReset.Text = "Limpar tudo";
             this.lbReset.Click += new System.EventHandler(this.lbReset_Click);
             // 
+            // pbxLoading
+            // 
+            this.pbxLoading.Image = global::GoodTimePDFConverter.Properties.Resources.loading;
+            this.pbxLoading.Location = new System.Drawing.Point(12, 405);
+            this.pbxLoading.Name = "pbxLoading";
+            this.pbxLoading.Size = new System.Drawing.Size(45, 45);
+            this.pbxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbxLoading.TabIndex = 12;
+            this.pbxLoading.TabStop = false;
+            this.pbxLoading.Visible = false;
+            // 
+            // pbarProgresso
+            // 
+            this.pbarProgresso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbarProgresso.CorFundo = System.Drawing.Color.White;
+            this.pbarProgresso.CorProgresso = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbarProgresso.Location = new System.Drawing.Point(66, 431);
+            this.pbarProgresso.Maximo = 3;
+            this.pbarProgresso.Name = "pbarProgresso";
+            this.pbarProgresso.Size = new System.Drawing.Size(267, 19);
+            this.pbarProgresso.TabIndex = 16;
+            this.pbarProgresso.Valor = 1;
+            this.pbarProgresso.Visible = false;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 473);
+            this.ClientSize = new System.Drawing.Size(378, 421);
             this.Controls.Add(this.pbarProgresso);
             this.Controls.Add(this.lbPorcentagem);
             this.Controls.Add(this.lbLoading);
